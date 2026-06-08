@@ -1,0 +1,150 @@
+.flight-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.flight-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+  border-color: #0066cc;
+}
+
+.flight-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.airline-info {
+  flex: 1;
+}
+
+.airline-name {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.flight-id {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.price-info {
+  text-align: right;
+}
+
+.price {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #27ae60;
+}
+
+.per-passenger {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.flight-body {
+  margin-bottom: 16px;
+}
+
+.time-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.departure,
+.arrival {
+  flex: 1;
+  min-width: 80px;
+}
+
+.time {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.airport {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.duration {
+  flex: 0 0 120px;
+  text-align: center;
+  position: relative;
+}
+
+.line {
+  height: 2px;
+  background: linear-gradient(to right, #0066cc, #27ae60);
+  margin-bottom: 8px;
+}
+
+.flight-duration {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.flight-meta {
+  display: flex;
+  gap: 24px;
+  padding: 8px 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.stops,
+.seats {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stops strong,
+.seats strong {
+  color: #0066cc;
+  font-weight: 600;
+}
+
+.flight-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.select-btn {
+  background: linear-gradient(135deg, #0066cc, #0052a3);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.select-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+.select-btn:active {
+  transform: translateY(0);
+}

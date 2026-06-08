@@ -1,0 +1,139 @@
+<div class="booking-container" *ngIf="flight">
+  <div class="booking-header">
+    <button class="back-btn" (click)="onCancel()">
+      ← Back to Results
+    </button>
+    <h2>Complete Your Booking</h2>
+  </div>
+
+  <div class="booking-content">
+    <!-- Selected Flight Summary -->
+    <div class="flight-summary">
+      <h3>Selected Flight</h3>
+      <div class="summary-card">
+        <div class="summary-row">
+          <span class="label">Airline:</span>
+          <span class="value">{{ flight.airline }}</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Route:</span>
+          <span class="value"
+            >{{ flight.departureAirport }} →
+            {{ flight.arrivalAirport }}</span
+          >
+        </div>
+        <div class="summary-row">
+          <span class="label">Departure:</span>
+          <span class="value">{{ formatDateTime(flight.departureTime) }}</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Price per Person:</span>
+          <span class="value price">Rs{{ flight.price | number: '1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passenger Form -->
+    <div class="passengers-form">
+      <h3>Passenger Details</h3>
+      <p class="passenger-info">
+        Please fill in the details for {{ passengerCount }} passenger{{
+          passengerCount !== 1 ? 's' : ''
+        }}
+      </p>
+      <p class="document-info">
+        {{ isInternationalFlight ? 'International flight' : 'Domestic flight' }}:
+        Provide {{ documentLabel }} for all passengers.
+      </p>
+
+      <div class="passengers-list">
+        <div
+          *ngFor="let i of getPassengerRange(); let num = index"
+          class="passenger-card"
+        >
+          <h4>Passenger {{ num + 1 }}</h4>
+
+          <div class="form-group">
+            <label for="name-{{ i }}">Full Name *</label>
+            <input
+              id="name-{{ i }}"
+              type="text"
+              [(ngModel)]="passengers[i].name"
+              placeholder="John Doe"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email-{{ i }}">Email *</label>
+              <input
+                id="email-{{ i }}"
+                type="email"
+                [(ngModel)]="passengers[i].email"
+                placeholder="john@example.com"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="document-{{ i }}">{{ documentLabel }} *</label>
+              <input
+                id="document-{{ i }}"
+                type="text"
+                [(ngModel)]="passengers[i].documentNumber"
+                [placeholder]="documentPlaceholder"
+                required
+              />
+              <small
+                class="field-hint error"
+                *ngIf="passengers[i].documentNumber && !isDocumentNumberValid(passengers[i].documentNumber)"
+              >
+                {{ getDocumentValidationHint() }}
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Price Breakdown -->
+    <div class="price-breakdown">
+      <h3>Price Breakdown</h3>
+      <div class="breakdown-card">
+        <div class="breakdown-row">
+          <span>Price per person:</span>
+          <span>Rs{{ flight.price | number: '1.2-2' }}</span>
+        </div>
+        <div class="breakdown-row">
+          <span>Number of passengers:</span>
+          <span>{{ passengerCount }}</span>
+        </div>
+        <div class="breakdown-row divider">
+          <span>Total:</span>
+          <span class="total-price"
+            >Rs{{ totalPrice | number: '1.2-2' }}</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="cancel-btn" (click)="onCancel()">Cancel</button>
+      <button
+        class="confirm-btn"
+        (click)="onConfirmBooking()"
+        [disabled]="!isFormValid() || isBooking()"
+      >
+        <span *ngIf="!isBooking()">💳 Confirm & Pay</span>
+        <span *ngIf="isBooking()">Processing...</span>
+      </button>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error-message" *ngIf="errorMessage()">
+      ⚠️ {{ errorMessage() }}
+    </div>
+  </div>
+</div>

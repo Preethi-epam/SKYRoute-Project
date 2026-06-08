@@ -1,0 +1,8 @@
+# Ignore Visual Studio files and folders
+.vs/
+*.user
+*.suo
+*.vsidx
+*.vscode/
+bin/
+obj/

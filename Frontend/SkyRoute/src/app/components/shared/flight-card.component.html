@@ -1,0 +1,44 @@
+<div class="flight-card">
+  <div class="flight-header">
+    <div class="airline-info">
+      <h3 class="airline-name">{{ flight.airline }}</h3>
+      <span class="flight-id">Flight ID: {{ flight.id.substring(0, 8) }}...</span>
+    </div>
+    <div class="price-info">
+      <span class="price">Rs{{ flight.price | number: '1.2-2' }}</span>
+      <span class="per-passenger">per person</span>
+    </div>
+  </div>
+
+  <div class="flight-body">
+    <div class="time-info">
+      <div class="departure">
+        <span class="time">{{ formatTime(flight.departureTime) }}</span>
+        <span class="airport">{{ flight.departureAirport }}</span>
+      </div>
+      <div class="duration">
+        <div class="line"></div>
+        <span class="flight-duration">{{ formatDuration(flight.departureTime, flight.arrivalTime) }}</span>
+      </div>
+      <div class="arrival">
+        <span class="time">{{ formatTime(flight.arrivalTime) }}</span>
+        <span class="airport">{{ flight.arrivalAirport }}</span>
+      </div>
+    </div>
+
+    <div class="flight-meta">
+      <span class="stops">
+        <strong>{{ flight.stops }}</strong> {{ flight.stops === 1 ? 'Stop' : 'Stops' }}
+      </span>
+      <span class="seats">
+        <strong>{{ flight.availableSeats }}</strong> Seats Available
+      </span>
+    </div>
+  </div>
+
+  <div class="flight-footer">
+    <button class="select-btn" (click)="onSelect()">
+      Select Flight
+    </button>
+  </div>
+</div>

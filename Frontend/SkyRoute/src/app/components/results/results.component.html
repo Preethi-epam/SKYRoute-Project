@@ -1,0 +1,56 @@
+<div class="results-container" *ngIf="flights && flights.length > 0">
+  <div class="results-header">
+    <div>
+      <h2>Available Flights</h2>
+      <p class="flight-count">
+        {{ flights.length }} flight{{ flights.length !== 1 ? 's' : '' }} found
+      </p>
+    </div>
+
+    <div class="sort-controls">
+      <label for="sort">Sort by:</label>
+      <select id="sort" [(ngModel)]="selectedSort" (change)="onSortChange()">
+        <option value="price">💰 Price (Low to High)</option>
+        <option value="priceDesc">💰 Price (High to Low)</option>
+        <option value="duration">⏱️ Duration</option>
+        <option value="departure">🕐 Departure Time</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label>
+        <input
+          type="checkbox"
+          [(ngModel)]="filterNonStop"
+          (change)="applyFilters()"
+        />
+        <span>Non-stop flights only</span>
+      </label>
+    </div>
+
+    <!-- <div class="filter-group">
+      <label>Max Price: ${{ maxPrice }}</label>
+      <input
+        type="range"
+        min="0"
+        max="1000"
+        [(ngModel)]="maxPrice"
+        (change)="applyFilters()"
+      />
+    </div> -->
+  </div>
+
+  <div class="flights-list">
+    <app-flight-card
+      *ngFor="let flight of filteredFlights; trackBy: trackByFlightId"
+      [flight]="flight"
+      (selected)="onFlightSelected($event)"
+    ></app-flight-card>
+  </div>
+</div>
+
+<div class="no-results" *ngIf="!flights || flights.length === 0">
+  <p>No flights available on Selected Search</p>
+</div>

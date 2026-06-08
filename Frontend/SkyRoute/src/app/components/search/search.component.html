@@ -1,0 +1,94 @@
+<div class="search-container">
+  <div class="search-header">
+    <h1 class="search-title">✈️ Flight Search</h1>
+    <p class="search-subtitle">Find and book your perfect flight</p>
+  </div>
+
+  <form class="search-form" (ngSubmit)="onSearch()">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="from">From</label>
+        <select
+          id="from"
+          [(ngModel)]="searchRequest.from"
+          (ngModelChange)="onFromChange()"
+          name="from"
+          required
+        >
+          <option value="">Select From</option>
+          <option
+            *ngFor="let airport of airports"
+            [value]="airport"
+            [disabled]="airport === searchRequest.to"
+          >
+            {{ airport }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="to">To</label>
+        <select
+          id="to"
+          [(ngModel)]="searchRequest.to"
+          (ngModelChange)="onToChange()"
+          name="to"
+          required
+        >
+          <option value="">Select To</option>
+          <option
+            *ngFor="let airport of airports"
+            [value]="airport"
+            [disabled]="airport === searchRequest.from"
+          >
+            {{ airport }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Departure Date</label>
+        <input
+          id="date"
+          type="date"
+          [(ngModel)]="searchRequest.departureDate"
+          name="departureDate"
+          [min]="minDepartureDate"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="cabinClass">Cabin Class</label>
+        <select
+          id="cabinClass"
+          [(ngModel)]="searchRequest.cabinClass"
+          name="cabinClass"
+          required
+        >
+          <option *ngFor="let cabin of cabinClasses" [value]="cabin">
+            {{ cabin | titlecase }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="passengers">Passengers</label>
+        <select
+          id="passengers"
+          [(ngModel)]="searchRequest.passengers"
+          name="passengers"
+        >
+          <option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9]" [value]="i">
+            {{ i }} {{ i === 1 ? 'Passenger' : 'Passengers' }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit" class="search-btn" [disabled]="searching() || !isSearchValid()">
+      <span *ngIf="!searching()">🔍 Search Flights</span>
+      <span *ngIf="searching()">Searching...</span>
+    </button>
+  </form>
+</div>
